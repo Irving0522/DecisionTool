@@ -41,9 +41,24 @@ jobs:
           npm init -y
           npm install @capacitor/core
           npm install @capacitor/cli @capacitor/android
+          
+          # 安裝 Capacitor 的官方圖示產生工具
+          npm install @capacitor/assets --save-dev
+          
           # 初始化 Capacitor，這會自動產生必要的 Android 專案結構
           npx cap init "DecisionTool" "com.irving.decisiontool" --web-dir www
           npx cap add android
+          
+          # 準備圖示檔案給 capacitor-assets 工具
+          mkdir assets
+          # 將我們之前產生的高品質圖示複製過去當來源
+          cp www/icon-512.png assets/icon.png
+          # 也一併複製截圖當作手機開啟 App 時的啟動畫面 (Splash Screen)
+          cp www/screenshot-1.png assets/splash.png || true
+          
+          # 執行圖示覆寫！這會自動把 Android 裡面所有的預設圖標全部換成我們的
+          npx capacitor-assets generate
+          
           npx cap sync android
 
       - name: Build Android APK
