@@ -1,0 +1,62 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Prepare Web Assets
+        run: |
+          mkdir www
+          # 安全地將需要的網頁檔案移至打包資料夾中
+          cp index.html www/
+          cp main.js www/
+          cp style.css www/
+          cp manifest.json www/
+          cp sw.js www/
+          cp icon*.png www/ 2>/dev/null || true
+          cp screenshot*.png www/ 2>/dev/null || true
+          cp icon*.svg www/ 2>/dev/null || true
+
+      - name: Setup Capacitor Project
+        run: |
+          npm init -y
+          npm install @capacitor/core
+          npm install @capacitor/cli @capacitor/android
+          # 初始化 Capacitor，這會自動產生必要的 Android 專案結構
+          npx cap init "DecisionTool" "com.irving.decisiontool" --web-dir www
+          npx cap add android
+          npx cap sync android
+
+      - name: Build Android APK
+        working-directory: ./android
+        run: |
+          # 給予自動化腳本執行權限
+          chmod +x ./gradlew
+          # 使用 gradle 編譯 debug 版本的 APK 檔案
+          ./gradlew assembleDebug
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DecisionTool-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 7
