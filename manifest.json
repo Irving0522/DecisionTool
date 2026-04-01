@@ -1,9 +1,11 @@
 {
+  "id": "/",
   "name": "決策小工具",
   "short_name": "決策助手",
   "description": "擲硬幣與擲骰子，快速做決定的好幫手",
   "start_url": "./index.html",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#0f172a",
   "theme_color": "#121212",
   "icons": [
@@ -12,6 +14,25 @@
       "type": "image/svg+xml",
       "sizes": "192x192 512x512",
       "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./screenshot-1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "App Screenshot"
     }
   ]
 }
