@@ -9,15 +9,15 @@
     --text-muted: #94a3b8;
     
     /* Coin Colors */
-    --silver-base: #e2e8f0;
-    --silver-dark: #94a3b8;
-    --silver-highlight: #ffffff;
+    --silver-base: #f59e0b;
+    --silver-dark: #b45309;
+    --silver-highlight: #fdf6e3;
     
     /* Dice Colors */
-    --dice-bg: #004d00;
-    --dice-border: #003300;
-    --dice-dot: #ffd700;
-    --dice-dot-glow: rgba(255, 215, 0, 0.6);
+    --dice-bg: #f8fafc;
+    --dice-border: #cbd5e1;
+    --dice-dot: #1e293b;
+    --dice-dot-glow: rgba(0, 0, 0, 0.15);
 }
 
 * {
@@ -73,6 +73,7 @@ header h1 {
     font-weight: 700;
     margin-bottom: 1.5rem;
     background: linear-gradient(to right, #a78bfa, #c4b5fd);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -145,7 +146,7 @@ header h1 {
     border-radius: 50%;
     backface-visibility: hidden;
     background: linear-gradient(135deg, var(--silver-highlight) 0%, var(--silver-base) 40%, var(--silver-dark) 100%);
-    border: 3px solid #cbd5e1;
+    border: 3px solid #fcd34d;
     box-shadow: inset 0 0 10px rgba(0,0,0,0.3), 0 10px 20px rgba(0,0,0,0.5);
     display: flex;
     justify-content: center;
@@ -170,8 +171,8 @@ header h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #334155;
-    text-shadow: 1px 1px 0px rgba(255,255,255,0.7);
+    color: #78350f;
+    text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
 }
 
 .currency-value {
@@ -196,7 +197,7 @@ header h1 {
 .portrait-placeholder {
     width: 45px;
     height: 55px;
-    background: #334155;
+    background: #78350f;
     border-radius: 20px 20px 10px 10px;
     position: relative;
     margin-top: -10px;
@@ -205,7 +206,7 @@ header h1 {
     content: '';
     position: absolute;
     top: -20px; left: 5px; width: 35px; height: 35px;
-    background: #334155;
+    background: #78350f;
     border-radius: 50%;
 }
 
@@ -269,9 +270,9 @@ header h1 {
 .dice {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, #008000 0%, var(--dice-bg) 100%);
+    background: linear-gradient(135deg, #ffffff 0%, var(--dice-bg) 100%);
     border-radius: 16px;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 8px 16px rgba(0,0,0,0.6);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2), 0 8px 16px rgba(0,0,0,0.6);
     border: 2px solid var(--dice-border);
     position: relative;
     transform: rotateX(0) rotateY(0);
@@ -283,7 +284,7 @@ header h1 {
 }
 
 .dice-dot {
-    background: radial-gradient(circle at 30% 30%, #fff 0%, var(--dice-dot) 40%, #b38600 100%);
+    background: radial-gradient(circle at 30% 30%, #94a3b8 0%, var(--dice-dot) 50%, #020617 100%);
     border-radius: 50%;
     width: 14px;
     height: 14px;
@@ -302,6 +303,13 @@ header h1 {
 5: top-left, top-right, center, bottom-left, bottom-right
 6: top-left, top-right, center-left, center-right, bottom-left, bottom-right
 */
+
+/* Red dots for 1 and 4 */
+.show-1 .dice-dot,
+.show-4 .dice-dot {
+    background: radial-gradient(circle at 30% 30%, #fca5a5 0%, #dc2626 50%, #7f1d1d 100%);
+    box-shadow: 0 0 5px rgba(220, 38, 38, 0.4);
+}
 
 .show-1 .dot-1 { display: block; grid-column: 2; grid-row: 2; }
 
