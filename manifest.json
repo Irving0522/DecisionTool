@@ -1,0 +1,17 @@
+{
+  "name": "決策小工具",
+  "short_name": "決策助手",
+  "description": "擲硬幣與擲骰子，快速做決定的好幫手",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#121212",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}
