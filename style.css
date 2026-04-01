@@ -151,6 +151,7 @@ header h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden; /* Prevent portrait from leaking outside */
 }
 
 .coin-front {
@@ -195,17 +196,17 @@ header h1 {
 }
 
 .portrait-placeholder {
-    width: 45px;
-    height: 55px;
+    width: 35px;
+    height: 45px;
     background: #78350f;
-    border-radius: 20px 20px 10px 10px;
+    border-radius: 16px 16px 8px 8px;
     position: relative;
-    margin-top: -10px;
+    margin-top: 0px;
 }
 .portrait-placeholder::before {
     content: '';
     position: absolute;
-    top: -20px; left: 5px; width: 35px; height: 35px;
+    top: -15px; left: 4px; width: 27px; height: 27px;
     background: #78350f;
     border-radius: 50%;
 }
