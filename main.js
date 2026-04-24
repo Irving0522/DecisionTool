@@ -126,4 +126,99 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial render
     renderDice();
+
+    // Poker logic
+    const pokerCard = document.getElementById('poker-card');
+    const drawCardBtn = document.getElementById('draw-card-btn');
+    const restartPokerBtn = document.getElementById('restart-poker-btn');
+    const pokerRule = document.getElementById('poker-rule');
+    const cardsLeftDisplay = document.getElementById('cards-left');
+    
+    const cardFront = document.getElementById('card-front');
+    const cardValueEls = document.querySelectorAll('.card-value');
+    const cardSuitEls = document.querySelectorAll('.card-suit');
+    const cardSuitLarge = document.querySelector('.card-suit-large');
+
+    const rules = {
+        'A': '指定人喝',
+        '2': '「陪酒員」當其他人輸時，只要在他碰杯前大喊陪酒員，抽到2的人就要陪喝，直到別人再抽到下一張2才能退位',
+        '3': '「逢三」喊一個數字往下，有3、或3倍數就要拍手',
+        '4': '免死金牌，可保留，等適當時機再出牌',
+        '5': '「照相機」可保留，隨時可丟牌比出相機手勢，抓最慢比手勢的人',
+        '6': '摸鼻子，可保留，隨機摸鼻子，抓最慢摸鼻子的人',
+        '7': '遮眼睛，可選擇左或右邊的人矇住自己的眼睛。其他人現場隨機找人當莊，問抽牌的人這個人要不要喝，喝幾杯？被喊到喝的人就要喝(小心也有可能害到自己～)',
+        '8': '「上廁所牌」可保留（沒有8的不能上廁所）',
+        '9': '自己喝',
+        '10': '「神經病」其他人不能跟神經病講話，不小心犯規就要喝一杯。神經病間可以互相聊天，陷害別人喝酒',
+        'J': '右邊喝',
+        'Q': '左邊喝',
+        'K': '果園菜園動物園，選1種聯想接龍'
+    };
+
+    let deck = [];
+
+    function initDeck() {
+        const suits = ['♠', '♥', '♦', '♣'];
+        const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+        deck = [];
+        for (let suit of suits) {
+            for (let value of values) {
+                deck.push({ suit, value, color: (suit === '♥' || suit === '♦') ? 'red' : 'black' });
+            }
+        }
+        // Shuffle
+        for (let i = deck.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [deck[i], deck[j]] = [deck[j], deck[i]];
+        }
+    }
+
+    function resetPokerGame() {
+        initDeck();
+        cardsLeftDisplay.textContent = `剩餘牌數：${deck.length}`;
+        pokerRule.textContent = '點擊抽牌開始遊戲';
+        pokerCard.classList.remove('flipped');
+        restartPokerBtn.style.display = 'none';
+        drawCardBtn.style.display = 'block';
+    }
+
+    let isDrawing = false;
+    drawCardBtn.addEventListener('click', () => {
+        if (isDrawing || deck.length === 0) return;
+        isDrawing = true;
+        drawCardBtn.disabled = true;
+
+        pokerCard.style.transition = 'none';
+        pokerCard.classList.remove('flipped');
+        
+        // Wait a frame for transition reset to take effect
+        setTimeout(() => {
+            pokerCard.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            const card = deck.pop();
+            
+            cardFront.style.color = card.color === 'red' ? '#ef4444' : '#1e293b';
+            cardValueEls.forEach(el => el.textContent = card.value);
+            cardSuitEls.forEach(el => el.textContent = card.suit);
+            cardSuitLarge.textContent = card.suit;
+
+            pokerCard.classList.add('flipped');
+            
+            setTimeout(() => {
+                pokerRule.innerHTML = `<strong>${card.suit}${card.value}</strong><br>${rules[card.value]}`;
+                cardsLeftDisplay.textContent = `剩餘牌數：${deck.length}`;
+                isDrawing = false;
+                drawCardBtn.disabled = false;
+                
+                if (deck.length === 0) {
+                    drawCardBtn.style.display = 'none';
+                    restartPokerBtn.style.display = 'block';
+                }
+            }, 300); // Wait half of flip animation to change text
+        }, 50);
+    });
+
+    restartPokerBtn.addEventListener('click', resetPokerGame);
+
+    // Initialize poker deck on load
+    initDeck();
 });

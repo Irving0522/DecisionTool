@@ -24,6 +24,7 @@
             <div class="tabs">
                 <button class="tab-btn active" data-target="coin-section">擲硬幣</button>
                 <button class="tab-btn" data-target="dice-section">擲骰子</button>
+                <button class="tab-btn" data-target="poker-section">陪酒員</button>
             </div>
         </header>
 
@@ -49,6 +50,24 @@
                 </div>
                 <div class="result-display" id="coin-result">準備擲硬幣...</div>
                 <button id="flip-btn" class="btn-primary glow-effect">擲硬幣</button>
+            </section>
+
+            <!-- 陪酒員遊戲區塊 -->
+            <section id="poker-section" class="tool-section">
+                <div class="poker-card" id="poker-card">
+                    <div class="card-inner">
+                        <div class="card-front" id="card-front">
+                            <div class="card-top-left"><span class="card-value"></span><span class="card-suit"></span></div>
+                            <div class="card-center"><span class="card-suit-large"></span></div>
+                            <div class="card-bottom-right"><span class="card-value"></span><span class="card-suit"></span></div>
+                        </div>
+                        <div class="card-back"></div>
+                    </div>
+                </div>
+                <div class="rule-display" id="poker-rule">點擊抽牌開始遊戲</div>
+                <div class="cards-left" id="cards-left">剩餘牌數：52</div>
+                <button id="draw-card-btn" class="btn-primary glow-effect">抽牌</button>
+                <button id="restart-poker-btn" class="btn-primary" style="display: none; margin-top: 10px; background: #475569;">重新開始</button>
             </section>
 
             <!-- 擲骰子區塊 -->
