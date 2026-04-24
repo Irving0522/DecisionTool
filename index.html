@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>決策小工具</title>
-    <meta name="description" content="擲硬幣與擲骰子，快速做決定的好幫手">
+    <title>遊戲小工具</title>
+    <meta name="description" content="遊戲小工具">
     <meta name="theme-color" content="#121212">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -20,7 +20,7 @@
     <div class="bg-animated"></div>
     <div class="app-container glass-panel">
         <header>
-            <h1>決策小工具</h1>
+            <h1>遊戲小工具</h1>
             <div class="tabs">
                 <button class="tab-btn active" data-target="coin-section">擲硬幣</button>
                 <button class="tab-btn" data-target="dice-section">擲骰子</button>
@@ -57,9 +57,11 @@
                 <div class="poker-card" id="poker-card">
                     <div class="card-inner">
                         <div class="card-front" id="card-front">
-                            <div class="card-top-left"><span class="card-value"></span><span class="card-suit"></span></div>
+                            <div class="card-top-left"><span class="card-value"></span><span class="card-suit"></span>
+                            </div>
                             <div class="card-center"><span class="card-suit-large"></span></div>
-                            <div class="card-bottom-right"><span class="card-value"></span><span class="card-suit"></span></div>
+                            <div class="card-bottom-right"><span class="card-value"></span><span
+                                    class="card-suit"></span></div>
                         </div>
                         <div class="card-back"></div>
                     </div>
@@ -67,7 +69,8 @@
                 <div class="rule-display" id="poker-rule">點擊抽牌開始遊戲</div>
                 <div class="cards-left" id="cards-left">剩餘牌數：52</div>
                 <button id="draw-card-btn" class="btn-primary glow-effect">抽牌</button>
-                <button id="restart-poker-btn" class="btn-primary" style="display: none; margin-top: 10px; background: #475569;">重新開始</button>
+                <button id="restart-poker-btn" class="btn-primary"
+                    style="display: none; margin-top: 10px; background: #475569;">重新開始</button>
             </section>
 
             <!-- 擲骰子區塊 -->

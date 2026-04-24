@@ -133,26 +133,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const restartPokerBtn = document.getElementById('restart-poker-btn');
     const pokerRule = document.getElementById('poker-rule');
     const cardsLeftDisplay = document.getElementById('cards-left');
-    
+
     const cardFront = document.getElementById('card-front');
     const cardValueEls = document.querySelectorAll('.card-value');
     const cardSuitEls = document.querySelectorAll('.card-suit');
     const cardSuitLarge = document.querySelector('.card-suit-large');
 
     const rules = {
-        'A': '指定人喝',
-        '2': '「陪酒員」當其他人輸時，只要在他碰杯前大喊陪酒員，抽到2的人就要陪喝，直到別人再抽到下一張2才能退位',
-        '3': '「逢三」喊一個數字往下，有3、或3倍數就要拍手',
-        '4': '免死金牌，可保留，等適當時機再出牌',
-        '5': '「照相機」可保留，隨時可丟牌比出相機手勢，抓最慢比手勢的人',
-        '6': '摸鼻子，可保留，隨機摸鼻子，抓最慢摸鼻子的人',
-        '7': '遮眼睛，可選擇左或右邊的人矇住自己的眼睛。其他人現場隨機找人當莊，問抽牌的人這個人要不要喝，喝幾杯？被喊到喝的人就要喝(小心也有可能害到自己～)',
-        '8': '「上廁所牌」可保留（沒有8的不能上廁所）',
-        '9': '自己喝',
-        '10': '「神經病」其他人不能跟神經病講話，不小心犯規就要喝一杯。神經病間可以互相聊天，陷害別人喝酒',
-        'J': '右邊喝',
-        'Q': '左邊喝',
-        'K': '果園菜園動物園，選1種聯想接龍'
+        'A': { title: '指定人喝', desc: '' },
+        '2': { title: '陪酒員', desc: '當其他人輸時，陪酒員播必須陪喝，抽到2的人就要陪喝，直到別人再抽到下一張2才能退位' },
+        '3': { title: '逢三', desc: '喊一個數字開始，有3、或3倍數就要拍手' },
+        '4': { title: '免死金牌', desc: '可保留，等適當時機使用' },
+        '5': { title: '照相機', desc: '可保留，隨時可丟牌比出相機手勢，最後一個靜止的人就要喝' },
+        '6': { title: '摸鼻子', desc: '可保留，隨機摸鼻子，抓最慢摸鼻子的人就要喝' },
+        '7': { title: '遮眼睛', desc: '可選擇左或右邊的人矇住自己的眼睛。其他人現場隨機找人當莊，問抽牌的人這個人要不要喝，喝幾杯？被喊到喝的人就要喝' },
+        '8': { title: '上廁所牌', desc: '可保留（沒有8的不能上廁所）' },
+        '9': { title: '自己喝', desc: '' },
+        '10': { title: '神經病', desc: '其他人不能跟神經病講話，不小心犯規就要喝。神經病間可以互相聊天，陷害別人喝酒' },
+        'J': { title: '右邊喝', desc: '' },
+        'Q': { title: '左邊喝', desc: '' },
+        'K': { title: '果園菜園動物園', desc: '選1種聯想接龍' }
     };
 
     let deck = [];
@@ -190,25 +190,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         pokerCard.style.transition = 'none';
         pokerCard.classList.remove('flipped');
-        
+
         // Wait a frame for transition reset to take effect
         setTimeout(() => {
             pokerCard.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
             const card = deck.pop();
-            
+
             cardFront.style.color = card.color === 'red' ? '#ef4444' : '#1e293b';
             cardValueEls.forEach(el => el.textContent = card.value);
             cardSuitEls.forEach(el => el.textContent = card.suit);
             cardSuitLarge.textContent = card.suit;
 
             pokerCard.classList.add('flipped');
-            
+
             setTimeout(() => {
-                pokerRule.innerHTML = `<strong>${card.suit}${card.value}</strong><br>${rules[card.value]}`;
+                const rule = rules[card.value];
+                let html = `<strong>${card.suit}${card.value} - ${rule.title}</strong>`;
+                if (rule.desc) {
+                    html += `<br><span style="display:inline-block; margin-top:8px;">${rule.desc}</span>`;
+                }
+                pokerRule.innerHTML = html;
                 cardsLeftDisplay.textContent = `剩餘牌數：${deck.length}`;
                 isDrawing = false;
                 drawCardBtn.disabled = false;
-                
+
                 if (deck.length === 0) {
                     drawCardBtn.style.display = 'none';
                     restartPokerBtn.style.display = 'block';

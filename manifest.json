@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "決策小工具",
-  "short_name": "決策助手",
-  "description": "擲硬幣與擲骰子，快速做決定的好幫手",
+  "name": "遊戲小工具",
+  "short_name": "遊戲助手",
+  "description": "遊戲小工具",
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",
