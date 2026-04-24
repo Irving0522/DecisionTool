@@ -448,7 +448,6 @@ header h1 {
 .card-front {
     background: #fff;
     transform: rotateY(180deg);
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
